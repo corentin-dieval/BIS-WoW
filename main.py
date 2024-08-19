@@ -1,20 +1,18 @@
 import streamlit as st
 import pandas as pd
+from pathlib import Path
 from sqlalchemy import create_engine
+import json
 
 # Connexion à la base de données (optionnel)
 # engine = create_engine('postgresql://user:password@localhost:5432/yourdb')
 # df = pd.read_sql('select * from items', engine)
 
 # Chargement des données depuis un CSV
-df = pd.read_csv('path_to_your_csv.csv')
+df = pd.read_csv(Path('resources/Items WoW - Items.csv'))
 
-# Listes statiques pour les classes, spécialisations et métiers
-classes = {
-    "Guerrier": ["Armes", "Fureur", "Protection"],
-    "Mage": ["Arcane", "Feu", "Givre"],
-    # Ajouter toutes les classes ici
-}
+with open(Path("resources/call_spec.json")) as file:
+    classes = json.load(file)
 
 metiers = ["Alchimie", "Forgeron", "Enchantement", "Ingénieur", "Herboristerie", "Couture", "Mineur", "Peche", "Secourisme"]
 
@@ -29,7 +27,7 @@ classe_personnage = st.selectbox("Choisir la classe", list(classes.keys()))
 if classe_personnage:
     specialisation_personnage = st.selectbox("Choisir la spécialisation", classes[classe_personnage])
 
-niveau_personnage = st.slider("Niveau", 1, 60, 60)
+niveau_personnage = st.slider("Niveau", 1, 80, 70)
 metier_1 = st.selectbox("Premier métier", metiers)
 metier_2 = st.selectbox("Second métier", [m for m in metiers if m != metier_1])
 

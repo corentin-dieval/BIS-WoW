@@ -1,0 +1,15 @@
+{
+  "Death Knight": ["Holy", "Frost", "Blood"],
+  "Demon Hunter": ["Vengance", "Havoc"],
+  "Druid": ["Balance", "Guardian", "Feral", "Restauration"],
+  "Evoker": ["Augmentation", "Preservation", "Devastation"],
+  "Hunter": ["Marksmanship", "Beast Mastery", "Survival"],
+  "Mage": ["Fire", "Frost", "Arcane"],
+  "Monk": ["Windwalker", "Mistweaver", "Brewmaster"],
+  "Paladin": ["Protection", "Holy", "Retribution"],
+  "Priest": ["Shadow", "Discipline", "Holy"],
+  "Rogue": ["Assassination", "Outlaw", "Subtlety"],
+  "Shaman": ["Enhancement", "Elemental", "Restauration"],
+  "Warlock": ["Affliction", "Demonology", "Destruction"],
+  "Warrior": ["Protection", "Fury", "Arms"]
+}
