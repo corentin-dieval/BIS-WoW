@@ -1,15 +1,54 @@
 {
-  "Death Knight": ["Holy", "Frost", "Blood"],
-  "Demon Hunter": ["Vengance", "Havoc"],
-  "Druid": ["Balance", "Guardian", "Feral", "Restauration"],
-  "Evoker": ["Augmentation", "Preservation", "Devastation"],
-  "Hunter": ["Marksmanship", "Beast Mastery", "Survival"],
-  "Mage": ["Fire", "Frost", "Arcane"],
-  "Monk": ["Windwalker", "Mistweaver", "Brewmaster"],
-  "Paladin": ["Protection", "Holy", "Retribution"],
-  "Priest": ["Shadow", "Discipline", "Holy"],
-  "Rogue": ["Assassination", "Outlaw", "Subtlety"],
-  "Shaman": ["Enhancement", "Elemental", "Restauration"],
-  "Warlock": ["Affliction", "Demonology", "Destruction"],
-  "Warrior": ["Protection", "Fury", "Arms"]
+  "Death Knight": {
+    "spec": ["Holy", "Frost", "Blood"],
+    "armor_type": "Plate"
+  },
+  "Demon Hunter": {
+    "spec": ["Vengeance", "Havoc"],
+    "armor_type": "Leather"
+  },
+  "Druid": {
+    "spec": ["Balance", "Guardian", "Feral", "Restoration"],
+    "armor_type": "Leather"
+  },
+  "Evoker": {
+    "spec": ["Augmentation", "Preservation", "Devastation"],
+    "armor_type": "Mail"
+  },
+  "Hunter": {
+    "spec": ["Marksmanship", "Beast Mastery", "Survival"],
+    "armor_type": "Mail"
+  },
+  "Mage": {
+    "spec": ["Fire", "Frost", "Arcane"],
+    "armor_type": "Cloth"
+  },
+  "Monk": {
+    "spec": ["Windwalker", "Mistweaver", "Brewmaster"],
+    "armor_type": "Leather"
+  },
+  "Paladin": {
+    "spec": ["Protection", "Holy", "Retribution"],
+    "armor_type": "Plate"
+  },
+  "Priest": {
+    "spec": ["Shadow", "Discipline", "Holy"],
+    "armor_type": "Cloth"
+  },
+  "Rogue": {
+    "spec": ["Assassination", "Outlaw", "Subtlety"],
+    "armor_type": "Leather"
+  },
+  "Shaman": {
+    "spec": ["Enhancement", "Elemental", "Restoration"],
+    "armor_type": "Mail"
+  },
+  "Warlock": {
+    "spec": ["Affliction", "Demonology", "Destruction"],
+    "armor_type": "Cloth"
+  },
+  "Warrior": {
+    "spec": ["Protection", "Fury", "Arms"],
+    "armor_type": "Plate"
+  }
 }

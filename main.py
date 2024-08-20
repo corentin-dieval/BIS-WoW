@@ -3,6 +3,8 @@ import pandas as pd
 from pathlib import Path
 from sqlalchemy import create_engine
 import json
+import random
+
 
 # Connexion à la base de données (optionnel)
 # engine = create_engine('postgresql://user:password@localhost:5432/yourdb')
@@ -12,41 +14,60 @@ import json
 df = pd.read_csv(Path('resources/Items WoW - Items.csv'))
 
 with open(Path("resources/call_spec.json")) as file:
-    classes = json.load(file)
+    class_data = json.load(file)
 
-metiers = ["Alchimie", "Forgeron", "Enchantement", "Ingénieur", "Herboristerie", "Couture", "Mineur", "Peche", "Secourisme"]
+# # UI: Character creation
+# st.title("WoW Best in Slot (BIS) Manager")
+#
+# st.header("Create a Character")
+# character_name = st.text_input("Character Name")
+character_class = st.selectbox("Choose Class", list(class_data.keys()))
 
-# Interface utilisateur
-st.title("Gestion des BIS pour WoW")
+if character_class:
+    character_spec = st.selectbox("Choose Specialization", class_data[character_class]['spec'])
 
-# Création d'un personnage
-st.header("Créer un personnage")
-nom_personnage = st.text_input("Nom du personnage")
-classe_personnage = st.selectbox("Choisir la classe", list(classes.keys()))
+character_level = st.slider("Level", 1, 80, 70)
+primary_profession = st.selectbox("Primary Profession",
+                                  ["Alchemy", "Blacksmithing", "Enchanting", "Engineering", "Herbalism", "Tailoring",
+                                   "Mining", "Skinner", "Fishing", "First Aid"])
+secondary_profession = st.selectbox("Secondary Profession", [m for m in
+                                                             ["Alchemy", "Blacksmithing", "Enchanting", "Engineering",
+                                                              "Herbalism", "Tailoring",
+                                                              "Mining", "Skinner", "Fishing", "First Aid"] if m != primary_profession])
 
-if classe_personnage:
-    specialisation_personnage = st.selectbox("Choisir la spécialisation", classes[classe_personnage])
+# UI: BIS selection
+st.header("Select Your Best in Slot (BIS) Gear")
 
-niveau_personnage = st.slider("Niveau", 1, 80, 70)
-metier_1 = st.selectbox("Premier métier", metiers)
-metier_2 = st.selectbox("Second métier", [m for m in metiers if m != metier_1])
-
-# Sélection de l'équipement BIS
-st.header("Sélection de l'équipement BIS")
-
-slots = ["Tête", "Épaules", "Torse", "Jambes", "Mains", "Pieds", "Ceinture", "Poignets", "Collier", "Anneau", "Bijou", "Cape", "Arme"]
+slots = ["Head", "Shoulders", "Chest", "Legs", "Hands", "Feet", "Waist", "Wrist", "Neck", "Ring 1", "Ring 2",
+         "Trinket 1", "Trinket 2", "Back",
+         "Weapon 1", "Weapon 2"]
 bis_selection = {}
 
+df
+
 for slot in slots:
-    st.subheader(f"Sélectionner {slot}")
-    # Filtrer les items en fonction de la classe, spé, et slot
-    filtered_items = df[(df['Class'] == classe_personnage) & (df['Spec'] == specialisation_personnage) & (df['Slot'] == slot)]
-    item_choice = st.selectbox(f"Choisir un objet pour {slot}", filtered_items['ItemName'])
+    st.subheader(f"Select {slot} Slot Item")
+
+    # Get armor type for the selected class
+    armor_type = class_data[character_class]['armor_type']
+
+    # Filter items based on class, armor type, and slot
+    filtered_items = df[
+        (df['Slot'] == slot)
+        &
+        (df['Armor Type'].str.lower().str.contains(armor_type.lower()) |
+         df['Armor Type'].str.lower().isin(['accessories drops', 'trinket drops', 'weapons'])
+         )
+        ]
+
+    item_choice = st.selectbox(f"Choose an item for {slot}", filtered_items['Item'])
+
     bis_selection[slot] = item_choice
 
-# Affichage des endroits où farmer les BIS sélectionnés
-st.header("Où farmer vos BIS")
+# Display farming locations for selected BIS items
+st.header("Where to Farm Your BIS Gear")
 for slot, item in bis_selection.items():
-    location = df[df['ItemName'] == item]['Dungeon'].values[0]
-    st.write(f"{item} (Slot: {slot}) se trouve dans : {location}")
+    location = df[df['Item'] == item]['Dungeon'].values[0]
+    st.write(f"{item} (Slot: {slot}) can be found in: {location}")
+
 
